@@ -1,29 +1,32 @@
 import React from 'react';
 
-const styles = { 
-  card: { 
-    width: 350,
-  }
-}
-
-function Coin({coinLogo, name, symbol, price, volume}) {
+function Coin({coinLogo, name, symbol, price, ath, atl, marketCap, totalVolume, priceDifference, cSupply}) {
   return (
-    <div className="Coins">
-      <div class="flex">
-        <div>
-          <article class="card" style={styles.card}>
-            <img width="300" src={coinLogo} alt="coin logo"/>
-            <footer>
-              <h3>{name}</h3>
-              <p>{symbol}</p>
-              <p>${price}</p>
-              <p>${volume.toLocaleString()}</p>
-            </footer>
-          </article>
-        </div>
-      <div>
-        </div>
-      </div>
+    <div className="Coins valign-wrapper row" id="coin-wrapper"> 
+      <ul className="collection col s8 offset-s2">
+    <li className="collection-item avatar">
+      <img src={coinLogo} alt="coin logo" className="circle"/>
+      <span className="title">{name}</span>
+      <p className="blue-text text-darken-1">{symbol}</p>
+      <p>Current Price: <span className="blue-text text-darken-1">${price}</span></p>
+  <p>All Time Highest Price: <span className="purple-text text-darken-1">${ath}</span></p>
+  <p>All Time Lowest Price: <span className="yellow-text text-darken-4">${atl}</span></p>
+      <p>Circulating Supply: <span className="indigo-text text-darken-1">{cSupply.toLocaleString()}</span></p>
+      <p>Market Cap: <span className="blue-text text-darken-1">${marketCap.toLocaleString()}</span></p>
+      <p>Total Volume: <span className="blue-text text-darken-1">${totalVolume.toLocaleString()}</span></p>
+       {
+         priceDifference < 0 ? ( 
+           <p>
+             Price change | 24h: <span className="red-text"> {priceDifference.toFixed(2)}%</span>
+           </p>
+         ) : ( 
+          <p>
+          Price change | 24h: <span className="green-text"> {priceDifference.toFixed(2)}%</span>
+        </p>
+         )
+       }
+    </li>
+  </ul>
     </div>
   )
 }

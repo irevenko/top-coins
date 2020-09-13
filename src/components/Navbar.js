@@ -3,20 +3,17 @@ import React from 'react';
 
 function Navbar() { 
   return ( 
-    <div className="Navbar">
-      <div>
-        <nav className="demo">
-          <span className="brand">
-            <h2>Top Coins 💎</h2>
-          </span>
-          <input id="bmenub" type="checkbox" className="show" />
-          <label htmlFor="bmenub" className="burger pseudo button">menu</label>
-          <div className="menu">
-            <a rel="noopener noreferrer" target="_blank" href="https://github.com/irevenko/top-coins" className="button icon-puzzle">Source Code</a>
-          </div>
-        </nav>
-      </div>
+   <div className="Navbar">
+    <nav>
+    <div className="nav-wrapper blue lighten-1">
+      <span className="brand-logo">💎 Top coins </span>
+      <a rel="noopener noreferrer" target="_blank" href="https://github.com/irevenko/top-coins" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons" id="mobile-link">Source Code ⌨️</i></a>
+      <ul className="right hide-on-med-and-down">
+        <li><a rel="noopener noreferrer" target="_blank" href="https://github.com/irevenko/top-coins">Source Code ⌨️</a></li>
+      </ul>
     </div>
+  </nav>
+   </div>
   );
 }
 

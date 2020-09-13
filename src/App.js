@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import CoinsBoard from './components/CoinsBoard';
-
+import './index.css';
 
 function App() {
   return (
