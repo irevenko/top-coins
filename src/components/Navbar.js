@@ -12,7 +12,7 @@ function Navbar() {
         <li><a rel="noopener noreferrer" target="_blank" href="https://github.com/irevenko/top-coins">Source Code ⌨️</a></li>
       </ul>
     </div>
-  </nav>
+    </nav>
    </div>
   );
 }

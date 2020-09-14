@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Coin from './Coin';
 import axios from 'axios';
-import { Chart } from 'react-charts';
 
 const API_LINK = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1y';
 let loading = 'Loading...';
@@ -28,44 +27,51 @@ function CoinsBoard() {
     setSearch(e.target.value);
   }
 
+  function formatDate(dateStr) { 
+    const parts = dateStr.split('T')
+    return parts[0].toString();
+  }
+
   const filteredCoins = coins.filter(c => { 
     return c.name.toLowerCase().includes(search.toLowerCase());
   });
-
+  
   return (
     <div className="CoinsBoard">
       <h3 className="center-align">Search bar</h3>
       <div className="row">
-    <div className="input-field col s6 offset-s3">
-      <input id="first_name2" type="text" className="validate" onChange={handleChange}/>
-      <label className="active" htmlFor="first_name2">Enter the coin name</label>
-    </div>
-  </div>
-      <h3 className="center-align">Top&nbsp;
-        <strong className="blue-text text-darken-1 center-align">
-        {coins.length}
-        </strong>
-        &nbsp;coins
-      </h3>
-  <h1 className="center-align blue-text text-darken-1">{loading}</h1>
-      {filteredCoins.map(c => { 
-        return ( 
-          <Coin 
-          key={c.id} 
-          name={c.name} 
-          coinLogo={c.image}
-          symbol={c.symbol}
-          marketCap={c.market_cap}
-          price={c.current_price}
-          totalVolume={c.total_volume}
-          priceDifference={c.price_change_percentage_24h}
-          ath={c.ath}
-          atl={c.atl}
-          athDate={c.ath_date}
-          atlDate={c.atl_date}
-          cSupply={c.circulating_supply}/>
-       )
-    })}
+        <div className="input-field col s6 offset-s3">
+          <input id="first_name2" type="text" className="validate" onChange={handleChange}/>
+          <label className="active" htmlFor="first_name2">Enter the coin name</label>
+        </div>
+      </div>
+        <h3 className="center-align">Top&nbsp;
+          <strong className="blue-text text-darken-1 center-align">
+            {coins.length}
+          </strong>
+          &nbsp;coins
+        </h3>
+        <h1 className="center-align blue-text text-darken-1">{loading}</h1>
+          {filteredCoins.map(c => { 
+            return ( 
+              <Coin 
+              key={c.id} 
+              name={c.name} 
+              coinLogo={c.image}
+              symbol={c.symbol}
+              marketCap={c.market_cap}
+              marketCapRank={c.market_cap_rank}
+              price={c.current_price}
+              totalVolume={c.total_volume}
+              priceDifference={c.price_change_percentage_24h}
+              marketDifference={c.market_cap_change_percentage_24h}
+              ath={c.ath}
+              atl={c.atl}
+              athDate={formatDate(c.ath_date)}
+              atlDate={formatDate(c.atl_date)}
+              coinSupply={c.circulating_supply}/>
+            )
+          })}
     </div>
   )
 }
