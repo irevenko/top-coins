@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Coin({coinLogo, name, symbol, price, ath, athDate, atl, atlDate, marketCap, marketCapRank, totalVolume, priceDifference, marketDifference, coinSupply}) {
+function Coin({clickFn, coinLogo, name, symbol, price, ath, athDate, atl, atlDate, marketCap, marketCapRank, totalVolume, priceDifference, marketDifference, coinSupply}) {
   return (
     <div className="Coins valign-wrapper row" id="coin-wrapper"> 
       <ul className="collection col s8 offset-s2">
@@ -38,6 +39,7 @@ function Coin({coinLogo, name, symbol, price, ath, athDate, atl, atlDate, market
               </p>
             )
           }
+          <Link to="/info">GO HERE</Link>
         </li>
       </ul>
     </div>
