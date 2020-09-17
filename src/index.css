@@ -18,3 +18,18 @@ label {
 #mobile-link { 
   font-size: smaller !important;
 }
+
+select { 
+  width: 200px !important;
+}
+
+#select-wrapper {
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label { 
+  font-size: 1.2rem;
+}

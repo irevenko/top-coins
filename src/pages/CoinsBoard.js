@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Coin from './Coin';
+import Coin from '../components/Coin';
 import axios from 'axios';
 
 const API_LINK = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1y';
@@ -8,28 +8,67 @@ let loading = 'Loading...';
 function CoinsBoard() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
+  const [sortVal, setSortVal] = useState('');
 
-  useEffect(() => { 
+  useEffect(() => {
     async function fetchData() {
       try {
         const res = await axios.get(API_LINK);
-        const sortedData = res.data.sort((a, b) => b.current_price - a.current_price);
-        setCoins(sortedData);
+        switch(sortVal) { 
+          case 'current_price': 
+            setCoins(sortByPrice(res.data));
+            break;
+          case 'market_cap': 
+            setCoins(sortByMarketCap(res.data));
+            break;
+          case 'total_volume':
+            setCoins(sortByTotalVolume(res.data));
+            break;
+          case 'supply':
+            setCoins(sortBySupply(res.data));
+            break;
+          default:
+            setCoins(sortByPrice(res.data));
+        }
       } catch (err) {
         return err;
       }
      }
     fetchData();
     loading = '';
-  }, []);
+  }, [sortVal]);
 
-  function handleChange(e) { 
+  function handleSearch(e) { 
     setSearch(e.target.value);
+  }
+
+  function handleSelect(e) {
+    setSortVal(e.target.value);
   }
 
   function formatDate(dateStr) { 
     const parts = dateStr.split('T')
     return parts[0].toString();
+  }
+
+  function sortByPrice(response) {
+    const sorted = response.sort((a, b) => b.current_price - a.current_price);
+    return sorted;
+  }
+
+  function sortByMarketCap(response) {
+    const sorted = response.sort((a, b) => b.market_cap - a.market_cap);
+    return sorted;
+  }
+
+  function sortByTotalVolume(response) {
+    const sorted = response.sort((a, b) => b.total_volume - a.total_volume);
+    return sorted;
+  }
+
+  function sortBySupply(response) {
+    const sorted = response.sort((a, b) => b.circulating_supply - a.circulating_supply);
+    return sorted;
   }
 
   const filteredCoins = coins.filter(c => { 
@@ -41,7 +80,7 @@ function CoinsBoard() {
       <h3 className="center-align">Search bar</h3>
       <div className="row">
         <div className="input-field col s6 offset-s3">
-          <input id="first_name2" type="text" className="validate" onChange={handleChange}/>
+          <input id="first_name2" type="text" className="validate" onChange={handleSearch}/>
           <label className="active" htmlFor="first_name2">Enter the coin name</label>
         </div>
       </div>
@@ -51,11 +90,21 @@ function CoinsBoard() {
           </strong>
           &nbsp;coins
         </h3>
+        <div id="select-wrapper">
+        <label className="blue-text text-darken-1">Sort by</label>
+         <select className="browser-default" onChange={handleSelect}>
+           <option value="current_price" defaultValue>Current Price</option>
+           <option value="total_volume">Total Volume</option>
+           <option value="market_cap">Market Cap</option>
+           <option value="supply">Circulating Supply</option>
+         </select>
+         </div>
         <h1 className="center-align blue-text text-darken-1">{loading}</h1>
           {filteredCoins.map(c => { 
             return ( 
-              <Coin 
+              <Coin
               key={c.id} 
+              id={c.id}
               name={c.name} 
               coinLogo={c.image}
               symbol={c.symbol}

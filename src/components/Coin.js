@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Coin({clickFn, coinLogo, name, symbol, price, ath, athDate, atl, atlDate, marketCap, marketCapRank, totalVolume, priceDifference, marketDifference, coinSupply}) {
+function Coin({id, coinLogo, name, symbol, price, ath, athDate, atl, atlDate, marketCap, marketCapRank, totalVolume, priceDifference, marketDifference, coinSupply}) {
   return (
     <div className="Coins valign-wrapper row" id="coin-wrapper"> 
       <ul className="collection col s8 offset-s2">
@@ -39,7 +39,7 @@ function Coin({clickFn, coinLogo, name, symbol, price, ath, athDate, atl, atlDat
               </p>
             )
           }
-          <Link to="/info">GO HERE</Link>
+          <Link to={`/chart/${id}`}>DETAILED PRICE INFO</Link>
         </li>
       </ul>
     </div>
