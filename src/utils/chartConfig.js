@@ -12,8 +12,8 @@ export const chartOptions = {
   scales: {
     xAxes: [
       {
-        type: "time",
-        distribution: "linear",
+        type: 'time',
+        distribution: 'linear',
       },
     ],
   },
